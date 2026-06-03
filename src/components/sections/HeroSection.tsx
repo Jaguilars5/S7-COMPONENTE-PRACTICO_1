@@ -1,12 +1,14 @@
-import { ArrowRight, MapPin, Star } from "lucide-react";
-import { Link } from "react-router-dom";
+import { MapPin, Star } from "lucide-react";
 import { heroContent } from "../../data/hero";
 
 export function HeroSection() {
   return (
     <section className="hero" aria-label="Bienvenida a Zaruma">
       <div className="hero-bg">
-        <img src={heroContent.bgImage} alt="Santuario de la Virgen del Carmen" />
+        <img
+          src={heroContent.bgImage}
+          alt="Santuario de la Virgen del Carmen"
+        />
       </div>
 
       <div className="hero-content">
@@ -16,23 +18,13 @@ export function HeroSection() {
         </div>
 
         <h1 className="hero-title">
-          <span className="hero-title-highlight">{heroContent.titleParts[0]}</span>
+          <span className="hero-title-highlight">
+            {heroContent.titleParts[0]}
+          </span>
           {heroContent.titleParts[1]}
         </h1>
 
-        <p className="hero-description">
-          {heroContent.description}
-        </p>
-
-        <div className="hero-actions">
-          <Link to="/reservar" className="btn btn-primary btn-lg">
-            Contactar Hoteles
-            <ArrowRight size={18} />
-          </Link>
-          <Link to="/design-system" className="btn btn-secondary btn-lg">
-            Explorar Diseño
-          </Link>
-        </div>
+        <p className="hero-description">{heroContent.description}</p>
 
         <div className="hero-stats">
           {heroContent.stats.map((stat, idx) => (

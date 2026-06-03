@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 const sidebarLinks = [
   { to: "/", label: "Inicio" },
   { to: "/reservar", label: "Reservar Tour" },
-  { to: "/design-system", label: "Diseno" },
 ];
 
 export function Sidebar() {

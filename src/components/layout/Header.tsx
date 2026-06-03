@@ -41,9 +41,6 @@ export function Header() {
               {link.label}
             </NavLink>
           ))}
-          <Link to="/reservar" className="btn btn-primary btn-sm">
-            Contactar Hoteles
-          </Link>
         </nav>
 
         <button
@@ -74,13 +71,6 @@ export function Header() {
               {link.label}
             </NavLink>
           ))}
-          <Link
-            to="/reservar"
-            className="btn btn-primary"
-            onClick={() => setMenuOpen(false)}
-          >
-            Contactar Hoteles
-          </Link>
         </nav>
       </aside>
     </header>
