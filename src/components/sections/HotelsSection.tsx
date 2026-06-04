@@ -1,11 +1,14 @@
 import { Building, MapPin, Phone, Star, Tag } from "lucide-react";
 import { Link } from "react-router-dom";
-import { hotels } from "../../data/hotels";
 import fallbackHotelImg from "../../assets/img/CASAS-PATRIMONIALES-1.jpg";
+import { hotels } from "../../data/hotels";
 
 export function HotelsSection() {
   return (
-    <section className="section-padding bg-cream-dark hotels-section" aria-labelledby="hotels-title">
+    <section
+      className="section-padding bg-cream-dark hotels-section"
+      aria-labelledby="hotels-title"
+    >
       <div className="container">
         <div className="section-centered">
           <span className="badge badge-gold">
@@ -16,13 +19,18 @@ export function HotelsSection() {
             Hospedaje Colonial
           </h2>
           <p className="section-subtitle">
-            Descubra el encanto y la hospitalidad zarumeña en alojamientos que conservan el estilo republicano y vistas espectaculares de la cordillera.
+            Descubra el encanto y la hospitalidad zarumeña en alojamientos que
+            conservan el estilo republicano y vistas espectaculares de la
+            cordillera.
           </p>
         </div>
 
         <div className="hotels-grid">
           {hotels.map((hotel) => (
-            <article key={hotel.id} className={`hotel-card ${hotel.featured ? "hotel-card-featured" : ""}`}>
+            <article
+              key={hotel.id}
+              className={`hotel-card ${hotel.featured ? "hotel-card-featured" : ""}`}
+            >
               {hotel.featured && (
                 <div className="hotel-featured-badge">
                   <Star size={12} fill="currentColor" />
@@ -37,19 +45,21 @@ export function HotelsSection() {
                   className="hotel-card-image"
                   loading="lazy"
                   onError={(e) => {
-                    e.currentTarget.onerror = null; 
+                    e.currentTarget.onerror = null;
                     e.currentTarget.src = fallbackHotelImg;
                   }}
                 />
               </div>
-              
+
               <div className="hotel-card-body">
                 <div className="hotel-header">
                   <span className="hotel-style-tag">
                     <Tag size={12} />
                     {hotel.style}
                   </span>
-                  <span className="hotel-price">{hotel.priceRange.split("(")[0].trim()}</span>
+                  <span className="hotel-price">
+                    {hotel.priceRange.split("(")[0].trim()}
+                  </span>
                 </div>
 
                 <h3 className="hotel-name">{hotel.name}</h3>
@@ -72,14 +82,30 @@ export function HotelsSection() {
                     )}
                   </div>
 
-                  {hotel.phone && (
-                    <div className="hotel-info-item">
-                      <Phone size={16} className="text-gold" />
-                      <a href={`tel:${hotel.phone.split("/")[0].trim()}`} className="hotel-phone-link">
-                        {hotel.phone}
-                      </a>
+                  <div className="hotel-info-item">
+                    <Phone size={16} className="text-gold" />
+                    <div className="hotel-phones">
+                      {hotel.phone && (
+                        <a
+                          href={`tel:${hotel.phone.replace(/\s+/g, "")}`}
+                          className="hotel-phone-link"
+                        >
+                          {hotel.phone}
+                        </a>
+                      )}
+                      {hotel.whatsapp && (
+                        <a
+                          href={`https://api.whatsapp.com/send?phone=593${hotel.whatsapp.slice(1)}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="hotel-whatsapp-link"
+                          title="Contactar por WhatsApp"
+                        >
+                          {hotel.whatsapp}
+                        </a>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
 
                 <div className="hotel-actions">
@@ -97,7 +123,10 @@ export function HotelsSection() {
 
         <div className="hotels-footer-note">
           <p>
-            * Los precios estimados corresponden a tarifas estándar por noche y pueden variar según la temporada (especialmente durante las fiestas patronales de la Virgen del Carmen del 14 al 22 de julio). Se recomienda reservar con anticipación.
+            * Los precios estimados corresponden a tarifas estándar por noche y
+            pueden variar según la temporada (especialmente durante las fiestas
+            patronales de la Virgen del Carmen del 14 al 22 de julio). Se
+            recomienda reservar con anticipación.
           </p>
         </div>
       </div>

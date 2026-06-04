@@ -1,17 +1,13 @@
-import {
-  ArrowLeft,
-  Building2,
-  MessageSquare,
-} from "lucide-react";
+import { ArrowLeft, Building2, MessageSquare } from "lucide-react";
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import { FormSuccess } from "./FormSuccess";
 import { FormInput } from "../../components/forms/FormInput";
 import { FormSelect } from "../../components/forms/FormSelect";
 import { FormTextarea } from "../../components/forms/FormTextarea";
 import { hotels } from "../../data/hotels";
 import { useForm } from "../../hooks/useForm";
 import type { FormValues, ValidationRules } from "../../types/form";
+import { FormSuccess } from "./FormSuccess";
 
 const hotelOptions = hotels.map((hotel) => ({
   value: hotel.id,
@@ -110,25 +106,17 @@ Aquí están mis datos:
 
     let url = "";
     if (formValues.contactMethod === "whatsapp") {
-      
-      const cleanPhone = hotel.phone
-        ? hotel.phone
-            .split("/")[0]
-            .replace(/[^0-9+]/g, "")
-            .trim()
-        : "+593992133888";
-
-      
-      let phoneWithCountry = cleanPhone;
-      if (phoneWithCountry.startsWith("0")) {
-        phoneWithCountry = "593" + phoneWithCountry.substring(1);
-      } else if (phoneWithCountry.startsWith("+")) {
-        phoneWithCountry = phoneWithCountry.substring(1);
+      if (!hotel.whatsapp) {
+        alert(
+          `${hotel.name} no tiene un número de WhatsApp disponible para contacto. Por favor, elija otro método de envío.`,
+        );
+        return;
       }
+
+      const phoneWithCountry = "593" + hotel.whatsapp.slice(1);
 
       url = `https://api.whatsapp.com/send?phone=${phoneWithCountry}&text=${encodeURIComponent(textMsg)}`;
     } else {
-      
       const emailRecipient = "info@zarumaturismo.ec";
       url = `mailto:${emailRecipient}?subject=${encodeURIComponent("Consulta de Hospedaje - " + hotel.name)}&body=${encodeURIComponent(textMsg)}`;
     }
@@ -136,7 +124,6 @@ Aquí están mis datos:
     setRedirectUrl(url);
     setSubmitted(true);
 
-    
     window.open(url, "_blank");
   };
 
@@ -159,19 +146,11 @@ Aquí están mis datos:
       <div className="container">
         <div className="form-section">
           <div className="form-header">
-            <div
-              className="form-header-icon"
-            >
+            <div className="form-header-icon">
               <Building2 size={24} className="text-gold" />
             </div>
-            <h1
-              className="section-title"
-            >
-              Contactar Alojamientos
-            </h1>
-            <p
-              className="section-subtitle"
-            >
+            <h1 className="section-title">Contactar Alojamientos</h1>
+            <p className="section-subtitle">
               Complete el formulario con los detalles de su estadía para
               redactar un mensaje directo a su hotel elegido por WhatsApp o
               Correo electrónico.
